@@ -6,7 +6,7 @@
 </head>
 
 <body style="text-align: center;">
-    <h1>Log In</h1>
+    <h2><a href="sign up.html">Log In</a></h2>
     <p>Let's go to your account.</p>
     <form action="connect.php" method="post">
         <label>Email</label>
@@ -17,16 +17,11 @@
         <br>
         <input type="password" placeholder="Password" id="password" name="password">
         <br>
-        <!-- <br>
-        <label>Confirm Password</label>
-        <br>
-        <input type="password" placeholder="Confirm Password" id="password">
-        <br>
-        <a href="https://kosalvireak.github.io/Kosalvireak-Khoeun/">
-            <input type="button" value="submit">
-        </a>
-        <br>
-        <!-- <h4><strong>Not yet have an account? <a href="sign up.html">Sign Up</a> here</strong></h4> -->
+        <p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+        </p>
+        <p><label for="file" style="cursor: pointer;">Upload Image</label></p>
+
+        <script src="script.js"></script>
     </form>
 </body>
 
