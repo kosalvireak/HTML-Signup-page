@@ -15,14 +15,27 @@
         <br>
         <label>Password</label>
         <br>
-        <input type="password" placeholder="Password" id="password" name="password">
-        <br>
-        <p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
-        </p>
-        <p><label for="file" style="cursor: pointer;">Upload Image</label></p>
-
-        <script src="script.js"></script>
+        <input type="password" placeholder="Password" id="password" name="password"><br>
+        <button type="button" id="submit">Save your data</button>
     </form>
+    <script>
+        const submitBtn = document.querySelector('#submit');
+        const Email = document.querySelector('#email');
+        const Password = document.querySelector('#password');
+
+        submitBtn.onclick = function () {
+            let email = Email.value;
+            let password = Password.value;
+            console.log(email, password);
+            if (email && password) {
+                localStorage.setItem('Email', email);
+                localStorage.setItem('Password', password);
+                location.reload();
+            }
+        }
+
+    </script>
+
 </body>
 
 </html>
