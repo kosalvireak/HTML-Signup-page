@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Asap", sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        section:nth-child(1) {
+            color: #2f8e2b;
+        }
+
+        section:nth-child(2) {
+            background: #319898;
+        }
+
+        section:nth-child(3) {
+            background: #892727;
+        }
+
+        section:nth-child(4) {
+            background: #4e2cad;
+        }
+
+        section h1 {
+            font-size: 3rem;
+            margin: 20px;
+        }
+
+        /* 
+
+        @media (max-width: 900px) {
+            section h1 {
+                font-size: 2rem;
+                text-align: center;
+            }
+
+            section .text-container {
+                flex-direction: column;
+            }
+        } */
+
+        .reveal {
+            position: relative;
+            transform: translateY(150px);
+            opacity: 0;
+            transition: 1s all ease;
+        }
+
+        .reveal.active {
+            transform: translateY(-200px);
+            opacity: 1;
+        }
+
+        .sec {
+            position: relative;
+            transform: translateY(150px);
+            opacity: 0;
+            transition: 1s all ease;
+        }
+
+        .sec.active {
+            transform: translateY(-200px);
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <h1>Scroll Down to Reveal Elements &#8595;</h1>
+    </section>
+    <section class="sec" id="a1">
+        <h1>Section1</h1>
+    </section>
+
+    <section class="sec" id="a2">
+        <h1>Section 2</h1>
+    </section>
+
+    <section class="sec" id="a3">
+        <h1>Section 3</h1>
+    </section>
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".sec");
+
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 50;
+                // console.log("windowHeight", windowHeight);
+                // console.log("elementTop", elementTop);
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                } else {
+                    reveals[i].classList.remove("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+    </script>
+</body>
+
+</html>

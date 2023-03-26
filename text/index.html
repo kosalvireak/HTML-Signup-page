@@ -1,0 +1,103 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chart</title>
+    <style>
+        .chartBox {
+            width: 700px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chartBox">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <input type="file" id="uploadfile" accept=".csv" />
+    <button id="uploadconfirm">Upload</button>
+    <hr />
+    <button onclick="updateChart('userData')">User</button>
+    <button onclick="updateChart('commit')">show commits</button>
+
+    <hr />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js"></script>
+
+    <script>
+        // setup
+        const data = {
+            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            datasets: [
+                {
+                    label: "# of Votes",
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1,
+                },
+            ],
+        };
+
+        // config
+        const config = {
+            type: "bar",
+            data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    },
+                },
+            },
+        };
+
+        // render
+
+        const myChart = new Chart(document.getElementById("myChart"), config);
+
+        // papa parse
+        const userData = [];
+        const commit = [];
+        const labels = [];
+
+        const uploadconfirm = document
+            .getElementById("uploadconfirm")
+            .addEventListener("click", () => {
+                Papa.parse(document.getElementById("uploadfile").files[0], {
+                    download: true,
+                    header: true,
+                    skipEmptyLines: true, // clean up data
+                    complete: function (results) {
+                        userData.length = 0; // clear previous data
+                        commit.length = 0; // clear previous data
+                        labels.length = 0; // clear previous labels
+                        for (let i = 0; i < results.data.length; i++) {
+                            userData.push(results.data[i].User);
+                            commit.push(results.data[i].Commits);
+                            labels.push(results.data[i].User);
+                        }
+                        updateChart("userData"); // update chart with new data
+                    },
+                });
+            });
+
+        function updateChart(label) {
+            myChart.data.labels = labels;
+            myChart.data.datasets[0].label = label;
+
+            if (label === "userData") {
+                myChart.data.datasets[0].data = userData;
+            }
+            if (label === "commit") {
+                myChart.data.datasets[0].data = commit;
+            }
+            myChart.update();
+        }
+    </script>
+</body>
+
+</html>
